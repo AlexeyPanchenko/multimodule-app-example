@@ -1,12 +1,9 @@
-package ru.alexeypanchenko.mobuisdonor
+package ru.alexeypanchenko.mobuisdonor.di
 
 import android.app.Application
 import dagger.Module
 import dagger.Provides
-import ru.alexeypanchenko.mobuisdonor.list.ListItem
-import ru.alexeypanchenko.mobuisdonor.list.dependencies.ItemsRepository
 import javax.inject.Singleton
-
 
 @Module
 class AppModule(
@@ -18,6 +15,5 @@ class AppModule(
     fun provideApplication(): Application {
         return app
     }
-
 
 }
