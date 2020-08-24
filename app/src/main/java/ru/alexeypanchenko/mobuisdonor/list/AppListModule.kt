@@ -11,9 +11,11 @@ import ru.alexeypanchenko.mobuisdonor.list.dependencies.ItemsRepository
 import ru.alexeypanchenko.mobuisdonor.list.dependencies.ListOutRoute
 import ru.alexeypanchenko.mobuisdonor.settings.SettingsActivity
 import ru.alexeypanchenko.mobuisdonor.R
+import ru.alexeypanchenko.mobuisdonor.add.AddInRoute
+import ru.alexeypanchenko.mobuisdonor.add.di.AddItemModule
 import javax.inject.Singleton
 
-@Module(includes = [DetailModule::class])
+@Module(includes = [DetailModule::class, AddItemModule::class])
 class AppListModule {
 
     @Provides
@@ -35,7 +37,10 @@ class AppListModule {
 
     @Provides
     @Singleton
-    fun provideOutRoute(detailInRoute: DetailInRoute): ListOutRoute {
+    fun provideOutRoute(
+        detailInRoute: DetailInRoute,
+        addInRoute: AddInRoute
+    ): ListOutRoute {
         return object : ListOutRoute {
             override fun openDetail(fragment: Fragment, item: ListItem) {
                 fragment.requireActivity().supportFragmentManager.beginTransaction().replace(
@@ -51,12 +56,11 @@ class AppListModule {
             }
 
             override fun openAdd(fragment: Fragment) {
-//                fragment.requireActivity().supportFragmentManager.beginTransaction().replace(
-//                    R.id.container,
-//
-//                )
-//                    .addToBackStack(null)
-//                    .commitAllowingStateLoss()
+                fragment.requireActivity().supportFragmentManager.beginTransaction().replace(
+                    R.id.container, addInRoute.getAddFragment()
+                )
+                    .addToBackStack(null)
+                    .commitAllowingStateLoss()
             }
 
         }
