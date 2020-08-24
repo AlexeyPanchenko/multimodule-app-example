@@ -6,4 +6,5 @@ import ru.alexeypanchenko.mobuisdonor.list.ListItem
 interface ListOutRoute {
     fun openDetail(fragment: Fragment, item: ListItem)
     fun openSettings(fragment: Fragment)
+    fun openAdd(fragment: Fragment)
 }

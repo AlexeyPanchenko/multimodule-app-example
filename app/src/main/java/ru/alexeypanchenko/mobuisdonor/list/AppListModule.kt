@@ -50,6 +50,15 @@ class AppListModule {
                 fragment.startActivity(Intent(fragment.activity, SettingsActivity::class.java))
             }
 
+            override fun openAdd(fragment: Fragment) {
+//                fragment.requireActivity().supportFragmentManager.beginTransaction().replace(
+//                    R.id.container,
+//
+//                )
+//                    .addToBackStack(null)
+//                    .commitAllowingStateLoss()
+            }
+
         }
     }
 
