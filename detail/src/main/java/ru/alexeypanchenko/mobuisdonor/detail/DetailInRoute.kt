@@ -15,5 +15,5 @@ class DetailInRoute {
         }
     }
 
-    internal fun getDetailItem(bundle: Bundle): DetailItem? = bundle.getSerializable(ITEM_KEY) as? DetailItem
+    internal fun getDetailItem(bundle: Bundle?): DetailItem? = bundle?.getSerializable(ITEM_KEY) as? DetailItem
 }

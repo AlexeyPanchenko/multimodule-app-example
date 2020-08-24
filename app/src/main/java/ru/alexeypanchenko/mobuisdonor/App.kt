@@ -17,11 +17,6 @@ import ru.alexeypanchenko.mobuisdonor.list.di.ListModule
 
 class App : Application(), ListComponentProvider, AppComponentProvider, DetailComponentProvider {
 
-    companion object {
-        lateinit var appComponent: AppComponent
-        lateinit var listComponent: ListComponent
-    }
-
     override lateinit var appComponent: AppComponent
     override lateinit var listComponent: ListComponent
     override lateinit var detailComponent: DetailComponent
@@ -40,9 +35,6 @@ class App : Application(), ListComponentProvider, AppComponentProvider, DetailCo
             .detailModule(DetailModule())
             .detailDependencies(appComponent)
             .build()
-
-        App.appComponent = appComponent
-        App.listComponent = listComponent
 
     }
 }
