@@ -27,4 +27,5 @@ task clean(type: Delete) {
 
 ext {
 	dagger_version = '2.28.3'
+	room_version = '2.1.0'
 }
