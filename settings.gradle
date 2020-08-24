@@ -1,3 +1,4 @@
+include ':detail'
 include ':list'
 include ':app'
 rootProject.name = "Mobuis Donor Example"

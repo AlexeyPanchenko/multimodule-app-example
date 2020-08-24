@@ -1,16 +1,19 @@
 package ru.alexeypanchenko.mobuisdonor.list
 
 import android.content.Intent
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import dagger.Module
 import dagger.Provides
+import ru.alexeypanchenko.mobuisdonor.detail.DetailInRoute
+import ru.alexeypanchenko.mobuisdonor.detail.DetailItem
+import ru.alexeypanchenko.mobuisdonor.detail.di.DetailModule
 import ru.alexeypanchenko.mobuisdonor.list.dependencies.ItemsRepository
 import ru.alexeypanchenko.mobuisdonor.list.dependencies.ListOutRoute
 import ru.alexeypanchenko.mobuisdonor.settings.SettingsActivity
+import ru.alexeypanchenko.mobuisdonor.R
 import javax.inject.Singleton
 
-@Module
+@Module(includes = [DetailModule::class])
 class AppListModule {
 
     @Provides
@@ -31,10 +34,16 @@ class AppListModule {
     }
 
     @Provides
-    fun provideOutRoute(): ListOutRoute {
+    @Singleton
+    fun provideOutRoute(detailInRoute: DetailInRoute): ListOutRoute {
         return object : ListOutRoute {
             override fun openDetail(fragment: Fragment, item: ListItem) {
-                Toast.makeText(fragment.activity, "${item}", Toast.LENGTH_SHORT).show()
+                fragment.requireActivity().supportFragmentManager.beginTransaction().replace(
+                    R.id.container,
+                    detailInRoute.detailFragment(DetailItem(item.id, item.title, item.description))
+                )
+                    .addToBackStack(null)
+                    .commitAllowingStateLoss()
             }
 
             override fun openSettings(fragment: Fragment) {
@@ -43,6 +52,5 @@ class AppListModule {
 
         }
     }
-
 
 }
