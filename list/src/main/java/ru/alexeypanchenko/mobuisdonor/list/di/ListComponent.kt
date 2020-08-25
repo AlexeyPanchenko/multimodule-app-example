@@ -3,10 +3,9 @@ package ru.alexeypanchenko.mobuisdonor.list.di
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import dagger.Subcomponent
 import ru.alexeypanchenko.mobuisdonor.list.ListFragment
 import ru.alexeypanchenko.mobuisdonor.list.ListInRoute
-import ru.alexeypanchenko.mobuisdonor.list.dependencies.ItemsRepository
+import ru.alexeypanchenko.mobuisdonor.list.dependencies.ListItemsRepository
 import ru.alexeypanchenko.mobuisdonor.list.dependencies.ListOutRoute
 
 @Component(modules = [ListModule::class], dependencies = [ListDependencies::class])
@@ -16,7 +15,7 @@ interface ListComponent {
 }
 
 interface ListDependencies {
-    fun getItemsRepository(): ItemsRepository
+    fun getItemsRepository(): ListItemsRepository
     fun getOutRoute(): ListOutRoute
 }
 

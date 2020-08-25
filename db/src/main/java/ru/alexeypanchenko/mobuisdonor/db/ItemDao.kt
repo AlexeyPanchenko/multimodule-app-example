@@ -8,11 +8,11 @@ import androidx.room.Query
 interface ItemDao {
 
     @Query("SELECT * FROM items")
-    fun getAll(): List<Item>
+    fun getAll(): List<ItemEntry>
 
     @Query("SELECT * FROM items WHERE _id = :itemId LIMIT 1")
-    fun getById(itemId: Int): Item
+    fun getById(itemId: Int): ItemEntry?
 
     @Insert
-    fun add(item: Item)
+    fun add(item: ItemEntry)
 }

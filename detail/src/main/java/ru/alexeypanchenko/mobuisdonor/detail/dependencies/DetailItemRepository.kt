@@ -5,5 +5,5 @@ import ru.alexeypanchenko.mobuisdonor.detail.DetailItem
 
 interface DetailItemRepository {
     @WorkerThread
-    fun getDetailItem(itemId: Int): DetailItem
+    fun getDetailItem(itemId: Int): DetailItem?
 }

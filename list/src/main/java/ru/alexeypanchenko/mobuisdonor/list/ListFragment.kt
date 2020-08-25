@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.list_fragment.view.*
-import ru.alexeypanchenko.mobuisdonor.list.dependencies.ItemsRepository
+import ru.alexeypanchenko.mobuisdonor.list.dependencies.ListItemsRepository
 import ru.alexeypanchenko.mobuisdonor.list.dependencies.ListOutRoute
 import ru.alexeypanchenko.mobuisdonor.list.di.ListComponentProvider
 import javax.inject.Inject
@@ -15,7 +15,7 @@ import javax.inject.Inject
 class ListFragment : Fragment() {
 
     @Inject
-    lateinit var repository: ItemsRepository
+    lateinit var repository: ListItemsRepository
 
     @Inject
     lateinit var outRoute: ListOutRoute
