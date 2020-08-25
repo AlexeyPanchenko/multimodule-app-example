@@ -18,4 +18,8 @@ class ItemsRepository(
     fun getById(itemId: Int): ItemEntry? {
         return itemsDao.getById(itemId)
     }
+
+    fun removeById(itemId: Int) {
+        itemsDao.removeById(itemId)
+    }
 }

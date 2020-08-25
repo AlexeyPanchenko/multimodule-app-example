@@ -18,6 +18,10 @@ class AppDetailModule {
                 return DetailItem(dbItem.id, dbItem.title, dbItem.description, dbItem.additionalText)
             }
 
+            override fun removeDetailItem(itemId: Int) {
+                itemsRepository.removeById(itemId)
+            }
+
         }
     }
 

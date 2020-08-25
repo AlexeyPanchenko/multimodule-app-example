@@ -31,11 +31,20 @@ class DetailFragment : Fragment() {
     ): View? {
         val view: View = inflater.inflate(R.layout.detail_fragment, container, false)
         val detailItem: DetailItem? = inRoute.getDetailItem(arguments)
+        if (detailItem == null) {
+            requireFragmentManager().popBackStack()
+            return null
+        }
+        view.toolbar.setNavigationIcon(R.drawable.ic_baseline_delete_24)
+        view.toolbar.setNavigationOnClickListener {
+            detailItemRepository.removeDetailItem(detailItem.id)
+            requireFragmentManager().popBackStack()
+        }
         updateUi(view, detailItem)
 
 
         Handler().postDelayed({
-            updateUi(view, detailItemRepository.getDetailItem(detailItem?.id ?: 0))
+            updateUi(view, detailItemRepository.getDetailItem(detailItem.id))
         }, 2000)
         return view
     }

@@ -15,4 +15,7 @@ interface ItemDao {
 
     @Insert
     fun add(item: ItemEntry)
+
+    @Query("DELETE FROM items WHERE _id = :itemId")
+    fun removeById(itemId: Int)
 }
