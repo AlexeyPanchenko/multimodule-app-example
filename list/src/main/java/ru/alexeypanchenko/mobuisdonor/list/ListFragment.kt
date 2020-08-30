@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.list_fragment.view.*
 import ru.alexeypanchenko.mobuisdonor.list.dependencies.ListItemsRepository
 import ru.alexeypanchenko.mobuisdonor.list.di.DaggerListUiComponent
-import ru.alexeypanchenko.mobuisdonor.list.di.ListComponentProvider
 import ru.alexeypanchenko.mobuisdonor.list.di.ListComponentsProvider
 import javax.inject.Inject
 

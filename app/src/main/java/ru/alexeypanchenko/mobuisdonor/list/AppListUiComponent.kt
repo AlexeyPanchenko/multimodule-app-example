@@ -14,7 +14,6 @@ import ru.alexeypanchenko.mobuisdonor.detail.DetailInRoute
 import ru.alexeypanchenko.mobuisdonor.detail.DetailItem
 import ru.alexeypanchenko.mobuisdonor.detail.di.DetailModule
 import ru.alexeypanchenko.mobuisdonor.di.AppComponent
-import ru.alexeypanchenko.mobuisdonor.list.dependencies.ListItemsRepository
 import ru.alexeypanchenko.mobuisdonor.list.dependencies.ListOutRoute
 import ru.alexeypanchenko.mobuisdonor.list.di.ListComponent
 import ru.alexeypanchenko.mobuisdonor.list.di.ListUiComponent
@@ -43,12 +42,6 @@ class AppListUiModule(
     @Provides
     fun provideListRouter(@IdRes containerId: Int, listOutRoute: ListOutRoute): ListRouter {
         return ListRouter(activity, listOutRoute, activity.supportFragmentManager,  containerId)
-    }
-
-    @ListUiScope
-    @Provides
-    fun provideListRepository(listItemsRepository: ListItemsRepository): ListItemsRepository {
-        return listItemsRepository
     }
 
     @ListUiScope
