@@ -1,8 +1,6 @@
 package ru.alexeypanchenko.mobuisdonor.di
 
-import android.content.Context
 import dagger.Component
-import ru.alexeypanchenko.mobuisdonor.MainActivity
 import ru.alexeypanchenko.mobuisdonor.add.AppAddItemModule
 import ru.alexeypanchenko.mobuisdonor.add.di.AddItemDependencies
 import ru.alexeypanchenko.mobuisdonor.db.DatabaseModule
@@ -23,5 +21,4 @@ import javax.inject.Singleton
     ]
 )
 interface AppComponent : ListDependencies, DetailDependencies, AddItemDependencies {
-    fun inject(activity: MainActivity)
 }

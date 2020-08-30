@@ -15,19 +15,16 @@ import ru.alexeypanchenko.mobuisdonor.di.AppModule
 import ru.alexeypanchenko.mobuisdonor.di.DaggerAppComponent
 import ru.alexeypanchenko.mobuisdonor.list.AppListModule
 import ru.alexeypanchenko.mobuisdonor.list.di.DaggerListComponent
-import ru.alexeypanchenko.mobuisdonor.list.di.ListComponent
-import ru.alexeypanchenko.mobuisdonor.list.di.ListComponentProvider
+import ru.alexeypanchenko.mobuisdonor.list.di.ListComponentsProvider
 import ru.alexeypanchenko.mobuisdonor.list.di.ListModule
 
 class App :
     Application(),
-    ListComponentProvider,
     AppComponentProvider,
     DetailComponentProvider,
     AddItemComponentProvider {
 
     override lateinit var appComponent: AppComponent
-    override lateinit var listComponent: ListComponent
     override lateinit var detailComponent: DetailComponent
     override lateinit var addItemComponent: AddItemComponent
 
@@ -37,10 +34,11 @@ class App :
             .appModule(AppModule((this)))
             .appListModule(AppListModule())
             .build()
-        listComponent = DaggerListComponent.builder()
+        val listComponent = DaggerListComponent.builder()
             .listModule(ListModule())
             .listDependencies(appComponent)
             .build()
+        ListComponentsProvider.setListComponent(listComponent)
         detailComponent = DaggerDetailComponent.builder()
             .detailModule(DetailModule())
             .detailDependencies(appComponent)

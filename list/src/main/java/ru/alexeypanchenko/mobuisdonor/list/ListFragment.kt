@@ -8,8 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.list_fragment.view.*
 import ru.alexeypanchenko.mobuisdonor.list.dependencies.ListItemsRepository
-import ru.alexeypanchenko.mobuisdonor.list.dependencies.ListOutRoute
+import ru.alexeypanchenko.mobuisdonor.list.di.DaggerListUiComponent
 import ru.alexeypanchenko.mobuisdonor.list.di.ListComponentProvider
+import ru.alexeypanchenko.mobuisdonor.list.di.ListComponentsProvider
 import javax.inject.Inject
 
 class ListFragment : Fragment() {
@@ -18,10 +19,14 @@ class ListFragment : Fragment() {
     lateinit var repository: ListItemsRepository
 
     @Inject
-    lateinit var outRoute: ListOutRoute
+    lateinit var router: ListRouter
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (requireActivity().application as ListComponentProvider).listComponent.inject(this)
+        DaggerListUiComponent.builder()
+            .dependencies(ListComponentsProvider.getListUiComponentDependencies())
+            .listComponent(ListComponentsProvider.getListComponent())
+            .build()
+            .inject(this)
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
     }
@@ -43,10 +48,10 @@ class ListFragment : Fragment() {
 
         adapter.setItems(repository.getItems())
         adapter.itemClickListener = {
-            outRoute.openDetail(this, it)
+            router.openDetail(it)
         }
         view.toolbar.setNavigationOnClickListener {
-            outRoute.openSettings(this)
+            router.openSettings()
         }
 
         return view
@@ -60,7 +65,7 @@ class ListFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.add -> {
-                outRoute.openAdd(this)
+                router.openAdd()
                 return true
             }
         }
