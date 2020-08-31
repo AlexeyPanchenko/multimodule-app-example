@@ -17,7 +17,7 @@ object ListComponentsProvider {
         return listUiDependencies ?: throw IllegalStateException("ListUiComponent.Dependencies is not initialized!")
     }
 
-    fun setListUiComponentDependencies(dependencies: ListUiComponent.Dependencies) {
+    fun setListUiComponentDependencies(dependencies: ListUiComponent.Dependencies?) {
         this.listUiDependencies = dependencies
     }
 

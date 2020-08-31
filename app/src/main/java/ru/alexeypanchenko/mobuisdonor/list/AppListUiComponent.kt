@@ -6,43 +6,26 @@ import androidx.appcompat.app.AppCompatActivity
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import ru.alexeypanchenko.mobuisdonor.MainActivity
-import ru.alexeypanchenko.mobuisdonor.R
 import ru.alexeypanchenko.mobuisdonor.add.AddInRoute
 import ru.alexeypanchenko.mobuisdonor.add.di.AddItemModule
 import ru.alexeypanchenko.mobuisdonor.detail.DetailInRoute
 import ru.alexeypanchenko.mobuisdonor.detail.DetailItem
 import ru.alexeypanchenko.mobuisdonor.detail.di.DetailModule
-import ru.alexeypanchenko.mobuisdonor.di.AppComponent
+import ru.alexeypanchenko.mobuisdonor.di.MainActivityComponent
 import ru.alexeypanchenko.mobuisdonor.list.dependencies.ListOutRoute
-import ru.alexeypanchenko.mobuisdonor.list.di.ListComponent
 import ru.alexeypanchenko.mobuisdonor.list.di.ListUiComponent
 import ru.alexeypanchenko.mobuisdonor.list.di.ListUiScope
 import ru.alexeypanchenko.mobuisdonor.settings.SettingsActivity
 
 @ListUiScope
-@Component(modules = [AppListUiModule::class], dependencies = [AppComponent::class, ListComponent::class])
-interface AppListUiComponent : ListUiComponent.Dependencies {
-    fun inject(activity: MainActivity)
-}
+@Component(modules = [AppListUiModule::class], dependencies = [MainActivityComponent::class])
+interface AppListUiComponent : ListUiComponent.Dependencies
+
 
 @Module(includes = [DetailModule::class, AddItemModule::class])
 class AppListUiModule(
     private val activity: AppCompatActivity
 ) {
-
-    @ListUiScope
-    @Provides
-    @IdRes
-    fun getFragmentContainer(): Int {
-        return R.id.container
-    }
-
-    @ListUiScope
-    @Provides
-    fun provideListRouter(@IdRes containerId: Int, listOutRoute: ListOutRoute): ListRouter {
-        return ListRouter(activity, listOutRoute, activity.supportFragmentManager,  containerId)
-    }
 
     @ListUiScope
     @Provides

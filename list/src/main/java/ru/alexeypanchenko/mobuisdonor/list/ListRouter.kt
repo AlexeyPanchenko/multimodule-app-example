@@ -4,11 +4,12 @@ import android.app.Activity
 import androidx.annotation.IdRes
 import androidx.fragment.app.FragmentManager
 import ru.alexeypanchenko.mobuisdonor.list.dependencies.ListOutRoute
+import javax.inject.Inject
 
 /**
  * [activity], [fragmentManager], [container] for inner transactions.
  */
-class ListRouter(
+class ListRouter @Inject constructor(
     private val activity: Activity,
     private val outRoute: ListOutRoute,
     private val fragmentManager: FragmentManager,
