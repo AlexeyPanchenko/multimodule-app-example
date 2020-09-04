@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		ListComponentsProvider.setListUiComponentDependencies(
 			DaggerAppListUiComponent.builder()
-				.appListUiModule(AppListUiModule(this))
+				.appListUiModule(AppListUiModule())
 				.mainActivityComponent(
 					DaggerMainActivityComponent.builder()
 						.mainActivityModule(MainActivityModule(this))

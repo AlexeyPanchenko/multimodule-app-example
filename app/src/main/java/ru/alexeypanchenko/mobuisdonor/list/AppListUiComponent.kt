@@ -1,8 +1,9 @@
 package ru.alexeypanchenko.mobuisdonor.list
 
+import android.app.Activity
 import android.content.Intent
 import androidx.annotation.IdRes
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
 import dagger.Component
 import dagger.Module
 import dagger.Provides
@@ -23,13 +24,13 @@ interface AppListUiComponent : ListUiComponent.Dependencies
 
 
 @Module(includes = [DetailModule::class, AddItemModule::class])
-class AppListUiModule(
-    private val activity: AppCompatActivity
-) {
+class AppListUiModule {
 
     @ListUiScope
     @Provides
     fun getListOutRoute(
+        activity: Activity,
+        fragmentManager: FragmentManager,
         detailInRoute: DetailInRoute,
         addInRoute: AddInRoute,
         @IdRes containerId: Int
@@ -37,7 +38,7 @@ class AppListUiModule(
         return object : ListOutRoute {
 
             override fun openDetail(item: ListItem) {
-               activity.supportFragmentManager.beginTransaction().replace(
+                fragmentManager.beginTransaction().replace(
                     containerId,
                     detailInRoute.detailFragment(DetailItem(item.id, item.title, item.description))
                 )
@@ -50,7 +51,7 @@ class AppListUiModule(
             }
 
             override fun openAdd() {
-                activity.supportFragmentManager.beginTransaction()
+                fragmentManager.beginTransaction()
                     .replace(containerId, addInRoute.getAddFragment())
                     .addToBackStack(null)
                     .commitAllowingStateLoss()
