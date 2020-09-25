@@ -20,7 +20,8 @@ class MainActivity : AppCompatActivity() {
 						.mainActivityModule(MainActivityModule(this))
 						.build()
 				)
-				.build()
+				.build(),
+			lifecycle
 		)
 
 		super.onCreate(savedInstanceState)
@@ -36,10 +37,5 @@ class MainActivity : AppCompatActivity() {
 				.commitAllowingStateLoss()
 
 		}
-	}
-
-	override fun onDestroy() {
-		super.onDestroy()
-		ListComponentsProvider.setListUiComponentDependencies(null)
 	}
 }

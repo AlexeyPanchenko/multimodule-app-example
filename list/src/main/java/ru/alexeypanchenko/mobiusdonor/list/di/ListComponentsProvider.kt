@@ -1,5 +1,9 @@
 package ru.alexeypanchenko.mobiusdonor.list.di
 
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+
 object ListComponentsProvider {
 
     private var listComponent: ListComponent? = null
@@ -17,9 +21,16 @@ object ListComponentsProvider {
         return listUiDependencies ?: throw IllegalStateException("ListUiComponent.Dependencies is not initialized!")
     }
 
-    fun setListUiComponentDependencies(dependencies: ListUiComponent.Dependencies?) {
+    fun setListUiComponentDependencies(
+        dependencies: ListUiComponent.Dependencies,
+        lifecycle: Lifecycle
+    ) {
         this.listUiDependencies = dependencies
+        lifecycle.addObserver(object : DefaultLifecycleObserver {
+            override fun onDestroy(owner: LifecycleOwner) {
+                listUiDependencies = null
+            }
+        })
     }
-
 
 }
