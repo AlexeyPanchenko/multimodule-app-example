@@ -13,7 +13,6 @@ import ru.alexeypanchenko.mobiusdonor.di.AppComponent
 import ru.alexeypanchenko.mobiusdonor.di.AppComponentProvider
 import ru.alexeypanchenko.mobiusdonor.di.AppModule
 import ru.alexeypanchenko.mobiusdonor.di.DaggerAppComponent
-import ru.alexeypanchenko.mobiusdonor.list.AppListModule
 import ru.alexeypanchenko.mobiusdonor.list.di.DaggerListComponent
 import ru.alexeypanchenko.mobiusdonor.list.di.ListComponentsProvider
 import ru.alexeypanchenko.mobiusdonor.list.di.ListModule
@@ -32,7 +31,6 @@ class App :
         super.onCreate()
         appComponent = DaggerAppComponent.builder()
             .appModule(AppModule((this)))
-            .appListModule(AppListModule())
             .build()
         val listComponent = DaggerListComponent.builder()
             .listModule(ListModule())

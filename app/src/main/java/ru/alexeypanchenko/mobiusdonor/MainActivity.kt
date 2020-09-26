@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import ru.alexeypanchenko.mobiusdonor.di.DaggerMainActivityComponent
 import ru.alexeypanchenko.mobiusdonor.di.MainActivityModule
-import ru.alexeypanchenko.mobiusdonor.list.AppListUiModule
 import ru.alexeypanchenko.mobiusdonor.list.DaggerAppListUiComponent
 import ru.alexeypanchenko.mobiusdonor.list.ListInRoute
 import ru.alexeypanchenko.mobiusdonor.list.di.ListComponentsProvider
@@ -14,7 +13,6 @@ class MainActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		ListComponentsProvider.setListUiComponentDependencies(
 			DaggerAppListUiComponent.builder()
-				.appListUiModule(AppListUiModule())
 				.mainActivityComponent(
 					DaggerMainActivityComponent.builder()
 						.mainActivityModule(MainActivityModule(this))
