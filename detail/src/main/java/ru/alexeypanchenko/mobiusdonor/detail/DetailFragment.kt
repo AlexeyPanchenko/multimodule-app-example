@@ -63,4 +63,9 @@ class DetailFragment : Fragment() {
         view.description.text = detailItem?.description
         view.additional.text = detailItem?.additionalText
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        DetailDependenciesProvider.clearUiDependencies()
+    }
 }

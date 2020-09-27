@@ -71,4 +71,9 @@ class ListFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        ListComponentsProvider.clearUiDependencies()
+    }
+
 }

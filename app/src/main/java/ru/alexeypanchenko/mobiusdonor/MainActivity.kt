@@ -15,40 +15,47 @@ import ru.alexeypanchenko.mobiusdonor.list.di.ListComponentsProvider
 class MainActivity : AppCompatActivity() {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
-		val mainActivityComponent = DaggerMainActivityComponent.builder()
-			.mainActivityModule(MainActivityModule(this))
-			.build()
-		ListComponentsProvider.setListUiComponentDependencies(
-			DaggerAppListUiComponent.builder()
-				.mainActivityComponent(mainActivityComponent)
-				.build(),
-			lifecycle
-		)
-		DetailDependenciesProvider.setDetailUiComponentDependencies(
-			DaggerAppDetailUiComponent.builder()
-				.mainActivityComponent(mainActivityComponent)
-				.build(),
-			lifecycle
-		)
-		AddItemDependenciesProvider.setUiComponentDependencies(
-			DaggerAppAddItemUiComponent.builder()
-				.mainActivityComponent(mainActivityComponent)
-				.build(),
-			lifecycle
-		)
-
+		initDependenciesProviders()
 		super.onCreate(savedInstanceState)
-
 		setContentView(R.layout.activity_main)
 
-		val listInRoute: ListInRoute = ListComponentsProvider.getListComponent().getInRoute()
-
 		if (savedInstanceState == null || supportFragmentManager.findFragmentById(R.id.container) == null) {
+			val listInRoute: ListInRoute = ListComponentsProvider.getListComponent().getInRoute()
 			supportFragmentManager
 				.beginTransaction()
 				.replace(R.id.container, listInRoute.listFragment())
 				.commitAllowingStateLoss()
 
 		}
+	}
+
+	private fun initDependenciesProviders() {
+		val mainActivityComponent = DaggerMainActivityComponent.builder()
+			.mainActivityModule(MainActivityModule(this))
+			.build()
+		ListComponentsProvider.setListUiComponentDependenciesFactory(
+			{
+				DaggerAppListUiComponent.builder()
+					.mainActivityComponent(mainActivityComponent)
+					.build()
+			},
+			lifecycle
+		)
+		DetailDependenciesProvider.setDetailUiComponentDependenciesFactory(
+			{
+				DaggerAppDetailUiComponent.builder()
+					.mainActivityComponent(mainActivityComponent)
+					.build()
+			},
+			lifecycle
+		)
+		AddItemDependenciesProvider.setUiComponentDependenciesFactory(
+			{
+				DaggerAppAddItemUiComponent.builder()
+					.mainActivityComponent(mainActivityComponent)
+					.build()
+			},
+			lifecycle
+		)
 	}
 }

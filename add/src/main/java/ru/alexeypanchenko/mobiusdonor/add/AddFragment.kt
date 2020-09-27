@@ -62,4 +62,9 @@ class AddFragment : Fragment() {
         }
         return view
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        AddItemDependenciesProvider.clearUiDependencies()
+    }
 }

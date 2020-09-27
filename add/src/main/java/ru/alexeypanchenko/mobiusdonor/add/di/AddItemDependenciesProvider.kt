@@ -6,31 +6,44 @@ import androidx.lifecycle.LifecycleOwner
 
 object AddItemDependenciesProvider {
 
+    private var addItemComponentFactory: (() -> AddItemComponent?)? = null
+    private var uiDependenciesFactory: (() -> AddItemUiComponent.Dependencies?)? = null
     private var addItemComponent: AddItemComponent? = null
     private var uiDependencies: AddItemUiComponent.Dependencies? = null
 
     fun getAddItemComponent(): AddItemComponent {
+        if (addItemComponent == null) {
+            addItemComponent = addItemComponentFactory?.invoke()
+        }
         return addItemComponent ?: throw IllegalStateException("AddItemComponent is not initialized!")
     }
 
-    fun setAddItemComponent(addItemComponent: AddItemComponent?) {
-        this.addItemComponent = addItemComponent
+    fun setAddItemComponentFactory(factory: () -> AddItemComponent?) {
+        this.addItemComponentFactory = factory
     }
 
     fun getUiComponentDependencies(): AddItemUiComponent.Dependencies {
+        if (uiDependencies == null) {
+            uiDependencies = uiDependenciesFactory?.invoke()
+        }
         return uiDependencies ?: throw IllegalStateException("AddItemUiComponent.Dependencies is not initialized!")
     }
 
-    fun setUiComponentDependencies(
-        dependencies: AddItemUiComponent.Dependencies,
+    fun setUiComponentDependenciesFactory(
+        factory: () -> AddItemUiComponent.Dependencies?,
         lifecycle: Lifecycle
     ) {
-        this.uiDependencies = dependencies
+        this.uiDependenciesFactory = factory
         lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onDestroy(owner: LifecycleOwner) {
-                uiDependencies = null
+                uiDependenciesFactory = null
+                clearUiDependencies()
             }
         })
+    }
+
+    internal fun clearUiDependencies() {
+        uiDependencies = null
     }
 
 }

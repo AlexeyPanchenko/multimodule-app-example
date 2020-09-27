@@ -6,31 +6,44 @@ import androidx.lifecycle.LifecycleOwner
 
 object ListComponentsProvider {
 
+    private var listComponentFactory: (() -> ListComponent?)? = null
+    private var listUiDependenciesFactory: (() -> ListUiComponent.Dependencies?)? = null
     private var listComponent: ListComponent? = null
     private var listUiDependencies: ListUiComponent.Dependencies? = null
 
     fun getListComponent(): ListComponent {
+        if (listComponent == null) {
+            listComponent = listComponentFactory?.invoke()
+        }
         return listComponent ?: throw IllegalStateException("ListComponent is not initialized!")
     }
 
-    fun setListComponent(listComponent: ListComponent?) {
-        this.listComponent = listComponent
+    fun setListComponentFactory(factory: () -> ListComponent?) {
+        this.listComponentFactory = factory
     }
 
     fun getListUiComponentDependencies(): ListUiComponent.Dependencies {
+        if (listUiDependencies == null) {
+            listUiDependencies = listUiDependenciesFactory?.invoke()
+        }
         return listUiDependencies ?: throw IllegalStateException("ListUiComponent.Dependencies is not initialized!")
     }
 
-    fun setListUiComponentDependencies(
-        dependencies: ListUiComponent.Dependencies,
+    fun setListUiComponentDependenciesFactory(
+        factory: (() -> ListUiComponent.Dependencies?)?,
         lifecycle: Lifecycle
     ) {
-        this.listUiDependencies = dependencies
+        this.listUiDependenciesFactory = factory
         lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onDestroy(owner: LifecycleOwner) {
-                listUiDependencies = null
+                listUiDependenciesFactory = null
+                clearUiDependencies()
             }
         })
+    }
+
+    internal fun clearUiDependencies() {
+        listUiDependencies = null
     }
 
 }

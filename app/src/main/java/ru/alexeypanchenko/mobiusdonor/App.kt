@@ -20,20 +20,24 @@ class App : Application() {
         val appComponent = DaggerAppComponent.builder()
             .appModule(AppModule((this)))
             .build()
-        val listComponent = DaggerListComponent.builder()
-            .listModule(ListModule())
-            .listDependencies(appComponent)
-            .build()
-        ListComponentsProvider.setListComponent(listComponent)
-        val detailComponent = DaggerDetailComponent.builder()
-            .detailModule(DetailModule())
-            .detailDependencies(appComponent)
-            .build()
-        DetailDependenciesProvider.setDetailComponent(detailComponent)
-        val addItemComponent = DaggerAddItemComponent.builder()
-            .addItemModule(AddItemModule())
-            .addItemDependencies(appComponent)
-            .build()
-        AddItemDependenciesProvider.setAddItemComponent(addItemComponent)
+        ListComponentsProvider.setListComponentFactory {
+            DaggerListComponent.builder()
+                .listModule(ListModule())
+                .listDependencies(appComponent)
+                .build()
+        }
+        DetailDependenciesProvider.setDetailComponentFactory {
+            DaggerDetailComponent.builder()
+                .detailModule(DetailModule())
+                .detailDependencies(appComponent)
+                .build()
+        }
+        AddItemDependenciesProvider.setAddItemComponentFactory {
+
+            DaggerAddItemComponent.builder()
+                .addItemModule(AddItemModule())
+                .addItemDependencies(appComponent)
+                .build()
+        }
     }
 }
