@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
-import ru.alexeypanchenko.mobiusdonor.ItemsRepository
 import javax.inject.Singleton
 
 @Module
@@ -24,9 +23,4 @@ class DatabaseModule {
         return database.itemDao()
     }
 
-    @Provides
-    @Singleton
-    fun provideItemsRepository(itemDao: ItemDao): ItemsRepository {
-        return ItemsRepository(itemDao)
-    }
 }

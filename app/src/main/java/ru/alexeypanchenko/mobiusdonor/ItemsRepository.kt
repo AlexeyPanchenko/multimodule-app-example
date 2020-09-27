@@ -2,8 +2,11 @@ package ru.alexeypanchenko.mobiusdonor
 
 import ru.alexeypanchenko.mobiusdonor.db.ItemDao
 import ru.alexeypanchenko.mobiusdonor.db.ItemEntry
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class ItemsRepository(
+@Singleton
+class ItemsRepository @Inject constructor(
     private val itemsDao: ItemDao
 ) {
 
