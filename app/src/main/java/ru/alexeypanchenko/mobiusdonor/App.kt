@@ -6,8 +6,7 @@ import ru.alexeypanchenko.mobiusdonor.add.di.AddItemComponentProvider
 import ru.alexeypanchenko.mobiusdonor.add.di.AddItemModule
 import ru.alexeypanchenko.mobiusdonor.add.di.DaggerAddItemComponent
 import ru.alexeypanchenko.mobiusdonor.detail.di.DaggerDetailComponent
-import ru.alexeypanchenko.mobiusdonor.detail.di.DetailComponent
-import ru.alexeypanchenko.mobiusdonor.detail.di.DetailComponentProvider
+import ru.alexeypanchenko.mobiusdonor.detail.di.DetailDependenciesProvider
 import ru.alexeypanchenko.mobiusdonor.detail.di.DetailModule
 import ru.alexeypanchenko.mobiusdonor.di.AppComponent
 import ru.alexeypanchenko.mobiusdonor.di.AppComponentProvider
@@ -20,11 +19,9 @@ import ru.alexeypanchenko.mobiusdonor.list.di.ListModule
 class App :
     Application(),
     AppComponentProvider,
-    DetailComponentProvider,
     AddItemComponentProvider {
 
     override lateinit var appComponent: AppComponent
-    override lateinit var detailComponent: DetailComponent
     override lateinit var addItemComponent: AddItemComponent
 
     override fun onCreate() {
@@ -37,10 +34,11 @@ class App :
             .listDependencies(appComponent)
             .build()
         ListComponentsProvider.setListComponent(listComponent)
-        detailComponent = DaggerDetailComponent.builder()
+        val detailComponent = DaggerDetailComponent.builder()
             .detailModule(DetailModule())
             .detailDependencies(appComponent)
             .build()
+        DetailDependenciesProvider.setDetailComponent(detailComponent)
         addItemComponent = DaggerAddItemComponent.builder()
             .addItemModule(AddItemModule())
             .addItemDependencies(appComponent)
