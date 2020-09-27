@@ -7,23 +7,17 @@ import ru.alexeypanchenko.mobiusdonor.add.di.DaggerAddItemComponent
 import ru.alexeypanchenko.mobiusdonor.detail.di.DaggerDetailComponent
 import ru.alexeypanchenko.mobiusdonor.detail.di.DetailDependenciesProvider
 import ru.alexeypanchenko.mobiusdonor.detail.di.DetailModule
-import ru.alexeypanchenko.mobiusdonor.di.AppComponent
-import ru.alexeypanchenko.mobiusdonor.di.AppComponentProvider
 import ru.alexeypanchenko.mobiusdonor.di.AppModule
 import ru.alexeypanchenko.mobiusdonor.di.DaggerAppComponent
 import ru.alexeypanchenko.mobiusdonor.list.di.DaggerListComponent
 import ru.alexeypanchenko.mobiusdonor.list.di.ListComponentsProvider
 import ru.alexeypanchenko.mobiusdonor.list.di.ListModule
 
-class App :
-    Application(),
-    AppComponentProvider {
-
-    override lateinit var appComponent: AppComponent
+class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        appComponent = DaggerAppComponent.builder()
+        val appComponent = DaggerAppComponent.builder()
             .appModule(AppModule((this)))
             .build()
         val listComponent = DaggerListComponent.builder()
