@@ -11,8 +11,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import ru.alexeypanchenko.mobiusdonor.add.dependencies.AddItemOutRoute
 import ru.alexeypanchenko.mobiusdonor.add.dependencies.AddItemRepository
-import ru.alexeypanchenko.mobiusdonor.add.di.AddItemComponentProvider
+import ru.alexeypanchenko.mobiusdonor.add.di.AddItemDependenciesProvider
+import ru.alexeypanchenko.mobiusdonor.add.di.DaggerAddItemUiComponent
 import javax.inject.Inject
 
 class AddFragment : Fragment() {
@@ -20,8 +22,15 @@ class AddFragment : Fragment() {
     @Inject
     lateinit var repository: AddItemRepository
 
+    @Inject
+    lateinit var outRoute: AddItemOutRoute
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        (requireActivity().application as AddItemComponentProvider).addItemComponent.inject(this)
+        DaggerAddItemUiComponent.builder()
+            .dependencies(AddItemDependenciesProvider.getUiComponentDependencies())
+            .addItemComponent(AddItemDependenciesProvider.getAddItemComponent())
+            .build()
+            .inject(this)
         super.onCreate(savedInstanceState)
     }
 
@@ -47,7 +56,7 @@ class AddFragment : Fragment() {
                     repository.addItem(AddItem(title, description, additionalText))
                 }
                 dialog.dismiss()
-                requireFragmentManager().popBackStack()
+                outRoute.goBack()
             }
 
         }

@@ -2,6 +2,8 @@ package ru.alexeypanchenko.mobiusdonor
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import ru.alexeypanchenko.mobiusdonor.add.DaggerAppAddItemUiComponent
+import ru.alexeypanchenko.mobiusdonor.add.di.AddItemDependenciesProvider
 import ru.alexeypanchenko.mobiusdonor.detail.DaggerAppDetailUiComponent
 import ru.alexeypanchenko.mobiusdonor.detail.di.DetailDependenciesProvider
 import ru.alexeypanchenko.mobiusdonor.di.DaggerMainActivityComponent
@@ -24,6 +26,12 @@ class MainActivity : AppCompatActivity() {
 		)
 		DetailDependenciesProvider.setDetailUiComponentDependencies(
 			DaggerAppDetailUiComponent.builder()
+				.mainActivityComponent(mainActivityComponent)
+				.build(),
+			lifecycle
+		)
+		AddItemDependenciesProvider.setUiComponentDependencies(
+			DaggerAppAddItemUiComponent.builder()
 				.mainActivityComponent(mainActivityComponent)
 				.build(),
 			lifecycle

@@ -3,14 +3,15 @@ package ru.alexeypanchenko.mobiusdonor.add.di
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import ru.alexeypanchenko.mobiusdonor.add.AddFragment
 import ru.alexeypanchenko.mobiusdonor.add.AddInRoute
 import ru.alexeypanchenko.mobiusdonor.add.dependencies.AddItemRepository
+import javax.inject.Singleton
 
+@Singleton
 @Component(dependencies = [AddItemDependencies::class], modules = [AddItemModule::class])
 interface AddItemComponent {
     fun getAddInRoute(): AddInRoute
-    fun inject(fragment: AddFragment)
+    fun getAddItemRepository(): AddItemRepository
 }
 
 interface AddItemDependencies {

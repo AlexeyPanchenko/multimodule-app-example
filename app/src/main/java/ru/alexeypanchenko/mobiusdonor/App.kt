@@ -1,8 +1,7 @@
 package ru.alexeypanchenko.mobiusdonor
 
 import android.app.Application
-import ru.alexeypanchenko.mobiusdonor.add.di.AddItemComponent
-import ru.alexeypanchenko.mobiusdonor.add.di.AddItemComponentProvider
+import ru.alexeypanchenko.mobiusdonor.add.di.AddItemDependenciesProvider
 import ru.alexeypanchenko.mobiusdonor.add.di.AddItemModule
 import ru.alexeypanchenko.mobiusdonor.add.di.DaggerAddItemComponent
 import ru.alexeypanchenko.mobiusdonor.detail.di.DaggerDetailComponent
@@ -18,11 +17,9 @@ import ru.alexeypanchenko.mobiusdonor.list.di.ListModule
 
 class App :
     Application(),
-    AppComponentProvider,
-    AddItemComponentProvider {
+    AppComponentProvider {
 
     override lateinit var appComponent: AppComponent
-    override lateinit var addItemComponent: AddItemComponent
 
     override fun onCreate() {
         super.onCreate()
@@ -39,10 +36,10 @@ class App :
             .detailDependencies(appComponent)
             .build()
         DetailDependenciesProvider.setDetailComponent(detailComponent)
-        addItemComponent = DaggerAddItemComponent.builder()
+        val addItemComponent = DaggerAddItemComponent.builder()
             .addItemModule(AddItemModule())
             .addItemDependencies(appComponent)
             .build()
-
+        AddItemDependenciesProvider.setAddItemComponent(addItemComponent)
     }
 }
