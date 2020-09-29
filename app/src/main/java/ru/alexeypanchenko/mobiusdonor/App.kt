@@ -12,6 +12,9 @@ import ru.alexeypanchenko.mobiusdonor.di.DaggerAppComponent
 import ru.alexeypanchenko.mobiusdonor.list.di.DaggerListComponent
 import ru.alexeypanchenko.mobiusdonor.list.di.ListComponentsProvider
 import ru.alexeypanchenko.mobiusdonor.list.di.ListModule
+import ru.alexeypanchenko.mobiusdonor.settings.di.DaggerSettingsComponent
+import ru.alexeypanchenko.mobiusdonor.settings.di.SettingsComponentProvider
+import ru.alexeypanchenko.mobiusdonor.settings.di.SettingsModule
 
 class App : Application() {
 
@@ -36,6 +39,11 @@ class App : Application() {
             DaggerAddItemComponent.builder()
                 .addItemModule(AddItemModule())
                 .addItemDependencies(appComponent)
+                .build()
+        }
+        SettingsComponentProvider.setSettingsComponentFactory {
+            DaggerSettingsComponent.builder()
+                .settingsModule(SettingsModule())
                 .build()
         }
     }

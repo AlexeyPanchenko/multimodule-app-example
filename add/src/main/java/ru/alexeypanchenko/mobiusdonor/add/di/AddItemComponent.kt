@@ -22,5 +22,6 @@ interface AddItemDependencies {
 class AddItemModule {
 
     @Provides
+    @Singleton
     fun getAddInRoute(): AddInRoute = AddInRoute()
 }

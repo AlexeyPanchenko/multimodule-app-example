@@ -11,6 +11,7 @@ import ru.alexeypanchenko.mobiusdonor.di.MainActivityModule
 import ru.alexeypanchenko.mobiusdonor.list.DaggerAppListUiComponent
 import ru.alexeypanchenko.mobiusdonor.list.ListInRoute
 import ru.alexeypanchenko.mobiusdonor.list.di.ListComponentsProvider
+import ru.alexeypanchenko.mobiusdonor.settings.di.SettingsComponentProvider
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,7 +26,6 @@ class MainActivity : AppCompatActivity() {
 				.beginTransaction()
 				.replace(R.id.container, listInRoute.listFragment())
 				.commitAllowingStateLoss()
-
 		}
 	}
 
@@ -37,6 +37,9 @@ class MainActivity : AppCompatActivity() {
 			{
 				DaggerAppListUiComponent.builder()
 					.mainActivityComponent(mainActivityComponent)
+					.detailComponent(DetailDependenciesProvider.getDetailComponent())
+					.addItemComponent(AddItemDependenciesProvider.getAddItemComponent())
+					.settingsComponent(SettingsComponentProvider.getSettingsComponent())
 					.build()
 			},
 			lifecycle

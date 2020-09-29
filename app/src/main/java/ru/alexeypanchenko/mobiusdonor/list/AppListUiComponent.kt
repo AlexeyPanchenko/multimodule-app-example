@@ -3,20 +3,28 @@ package ru.alexeypanchenko.mobiusdonor.list
 import dagger.Binds
 import dagger.Component
 import dagger.Module
-import ru.alexeypanchenko.mobiusdonor.add.di.AddItemModule
-import ru.alexeypanchenko.mobiusdonor.detail.di.DetailModule
+import ru.alexeypanchenko.mobiusdonor.add.di.AddItemComponent
+import ru.alexeypanchenko.mobiusdonor.detail.di.DetailComponent
 import ru.alexeypanchenko.mobiusdonor.di.MainActivityComponent
 import ru.alexeypanchenko.mobiusdonor.list.dependencies.ListOutRoute
 import ru.alexeypanchenko.mobiusdonor.list.di.ListUiComponent
 import ru.alexeypanchenko.mobiusdonor.list.di.ListUiScope
-import ru.alexeypanchenko.mobiusdonor.settings.di.SettingsModule
+import ru.alexeypanchenko.mobiusdonor.settings.di.SettingsComponent
 
 @ListUiScope
-@Component(modules = [AppListUiModule::class], dependencies = [MainActivityComponent::class])
+@Component(
+    modules = [AppListUiModule::class],
+    dependencies = [
+        MainActivityComponent::class,
+        DetailComponent::class,
+        AddItemComponent::class,
+        SettingsComponent::class
+    ]
+)
 interface AppListUiComponent : ListUiComponent.Dependencies
 
 
-@Module(includes = [DetailModule::class, AddItemModule::class, SettingsModule::class])
+@Module
 abstract class AppListUiModule {
 
     @ListUiScope

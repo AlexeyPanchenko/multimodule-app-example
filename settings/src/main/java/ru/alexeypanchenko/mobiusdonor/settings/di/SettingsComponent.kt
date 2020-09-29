@@ -8,12 +8,15 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [SettingsModule::class])
-interface SettingsComponent
+interface SettingsComponent {
+    fun getSettingsInRoute(): SettingsInRoute
+}
 
 @Module
 class SettingsModule {
 
     @Provides
+    @Singleton
     fun getInRoute(): SettingsInRoute = SettingsInRoute()
 
 }

@@ -1,6 +1,7 @@
 package ru.alexeypanchenko.mobiusdonor.list
 
 import android.app.Activity
+import android.util.Log
 import androidx.annotation.IdRes
 import androidx.fragment.app.FragmentManager
 import ru.alexeypanchenko.mobiusdonor.add.AddInRoute
@@ -18,6 +19,11 @@ class AppListOutRoute @Inject constructor(
     private val addInRoute: AddInRoute,
     @IdRes private val containerId: Int
 ) : ListOutRoute {
+
+    init {
+        Log.d("TTT", "Создаем AppListOutRoute")
+
+    }
 
     override fun openDetail(item: ListItem) {
         fragmentManager.beginTransaction().replace(

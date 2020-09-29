@@ -21,6 +21,7 @@ interface DetailDependencies {
 class DetailModule {
 
     @Provides
+    @Singleton
     fun getInRoute(): DetailInRoute = DetailInRoute()
 
 }
