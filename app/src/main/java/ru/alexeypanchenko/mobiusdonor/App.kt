@@ -33,7 +33,6 @@ class App : Application() {
                 .build()
         }
         AddItemDependenciesProvider.setAddItemComponentFactory {
-
             DaggerAddItemComponent.builder()
                 .addItemModule(AddItemModule())
                 .addItemDependencies(appComponent)

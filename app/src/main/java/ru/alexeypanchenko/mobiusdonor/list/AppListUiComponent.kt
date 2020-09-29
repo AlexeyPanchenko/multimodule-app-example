@@ -9,13 +9,14 @@ import ru.alexeypanchenko.mobiusdonor.di.MainActivityComponent
 import ru.alexeypanchenko.mobiusdonor.list.dependencies.ListOutRoute
 import ru.alexeypanchenko.mobiusdonor.list.di.ListUiComponent
 import ru.alexeypanchenko.mobiusdonor.list.di.ListUiScope
+import ru.alexeypanchenko.mobiusdonor.settings.di.SettingsModule
 
 @ListUiScope
 @Component(modules = [AppListUiModule::class], dependencies = [MainActivityComponent::class])
 interface AppListUiComponent : ListUiComponent.Dependencies
 
 
-@Module(includes = [DetailModule::class, AddItemModule::class])
+@Module(includes = [DetailModule::class, AddItemModule::class, SettingsModule::class])
 abstract class AppListUiModule {
 
     @ListUiScope

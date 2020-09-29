@@ -1,20 +1,20 @@
 package ru.alexeypanchenko.mobiusdonor.list
 
 import android.app.Activity
-import android.content.Intent
 import androidx.annotation.IdRes
 import androidx.fragment.app.FragmentManager
 import ru.alexeypanchenko.mobiusdonor.add.AddInRoute
 import ru.alexeypanchenko.mobiusdonor.detail.DetailInRoute
 import ru.alexeypanchenko.mobiusdonor.detail.DetailItem
 import ru.alexeypanchenko.mobiusdonor.list.dependencies.ListOutRoute
-import ru.alexeypanchenko.mobiusdonor.settings.SettingsActivity
+import ru.alexeypanchenko.mobiusdonor.settings.SettingsInRoute
 import javax.inject.Inject
 
 class AppListOutRoute @Inject constructor(
     private val activity: Activity,
     private val fragmentManager: FragmentManager,
     private val detailInRoute: DetailInRoute,
+    private val settingsInRoute: SettingsInRoute,
     private val addInRoute: AddInRoute,
     @IdRes private val containerId: Int
 ) : ListOutRoute {
@@ -29,7 +29,7 @@ class AppListOutRoute @Inject constructor(
     }
 
     override fun openSettings() {
-        activity.startActivity(Intent(activity, SettingsActivity::class.java))
+        activity.startActivity(settingsInRoute.intent(activity))
     }
 
     override fun openAdd() {

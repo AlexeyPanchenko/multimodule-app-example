@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/db" />
             <option value="$PROJECT_DIR$/detail" />
             <option value="$PROJECT_DIR$/list" />
+            <option value="$PROJECT_DIR$/settings" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

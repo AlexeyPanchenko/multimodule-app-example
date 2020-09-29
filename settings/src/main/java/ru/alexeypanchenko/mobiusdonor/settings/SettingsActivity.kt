@@ -2,7 +2,6 @@ package ru.alexeypanchenko.mobiusdonor.settings
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import ru.alexeypanchenko.mobiusdonor.R
 
 class SettingsActivity : AppCompatActivity() {
 
