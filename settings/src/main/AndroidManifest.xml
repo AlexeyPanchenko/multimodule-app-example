@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ru.alexeypanchenko.mobiusdonor.settings">
+    package="ru.alexeypanchenko.donorapp.settings">
 
     <application>
-        <activity android:name=".SettingsActivity" />
+        <activity android:name="ru.alexeypanchenko.donorapp.settings.SettingsActivity" />
     </application>
 </manifest>
