@@ -1,4 +1,4 @@
-Multi module donor app
+Multi module donor app (test)
 =====================================================
 
 Sample application for demonstrate flexible approach to design Android multi module project. 
