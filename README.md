@@ -23,4 +23,4 @@ Structure
 
 How to reuse feature module
 --------------------------------
-Just add necessary module as gradle dependency to your project and configure this feature.
+Just add necessary module as gradle dependency to your project and configure this feature. For example, see [multimodule-superapp-example](https://github.com/AlexeyPanchenko/multimodule-superapp-example).
